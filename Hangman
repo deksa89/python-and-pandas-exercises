@@ -1,0 +1,117 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled1.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNnJAwGLYsdjGiV7m24pw/R",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/deksa89/deksa89/blob/main/Hangman\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "LirHPhhKTFyL"
+      },
+      "source": [
+        "import random\n",
+        "from words import words\n",
+        "import string"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9J070KkkEKsC"
+      },
+      "source": [
+        "def get_valid_word(words):\n",
+        "    word = random.choice(words) #randomly chooses something from that list\n",
+        "    while \"_\" in word or \" \" in word:\n",
+        "        word = random.choice(words)\n",
+        "\n",
+        "    return word.upper()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GeMzdW7PEMvV"
+      },
+      "source": [
+        "def hangman():\n",
+        "    word = get_valid_word(words)\n",
+        "    word_letters = set(word) #letters in the word\n",
+        "    alphabet = set(string.ascii_uppercase) #import predetermined words in english dictionary\n",
+        "    used_letters = set() #what usser had guessed\n",
+        "\n",
+        "    lives = 6\n",
+        "\n",
+        "    #getting user input\n",
+        "    while len(word_letters) > 0 and lives > 0:\n",
+        "        #used letters\n",
+        "        print(\"You have\",lives, \"lifes left and you have used these letters: \",\" \".join(used_letters))\n",
+        "        word_list = [letter if letter in used_letters else \"-\" for letter in word]\n",
+        "        print(\"Current word: \", \" \".join(word_list))\n",
+        "\n",
+        "        user_letter = input(\"Guess a letter: \").upper()\n",
+        "        if user_letter in alphabet - used_letters:\n",
+        "            used_letters.add(user_letter)\n",
+        "            if user_letter in word_letters:\n",
+        "                word_letters.remove(user_letter)\n",
+        "            else:\n",
+        "                lives = lives - 1 # takes away a life if wrong\n",
+        "                print(\"Letter is not in a word\")\n",
+        "\n",
+        "\n",
+        "        elif user_letter in used_letters:\n",
+        "            print(\"You have used that letter.\")\n",
+        "        else:\n",
+        "            print(\"Invalid character.\")\n",
+        "\n",
+        "    #gets here when len(word_letters) == 0 OR when lives == 0\n",
+        "    if lives == 0:\n",
+        "        print(\"GAME OVER! The word was\", word)\n",
+        "    else:\n",
+        "        print(\"You guessed the word\", word,\"!!!\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "K3duHV_vESBm"
+      },
+      "source": [
+        "if __name__ == '__main__':\n",
+        "    hangman()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}

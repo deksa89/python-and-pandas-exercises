@@ -1,5 +1,0 @@
-- 👋 Hi, I’m @deksa89, new in programming
-- 👀 I’m interested in programming, GIS, cryptocurrencies and much more
-- 🌱 I’m currently learning Python and javaScript
-- 💞️ I’m looking to collaborate on any Python or JS project
-- 📫 How to reach me hudek.dean@gmail.com
